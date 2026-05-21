@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti, Mi Amor 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rosa: #f4a0b5;
+    --rosa-oscuro: #e07090;
+    --durazno: #fbd5b0;
+    --crema: #fff8f0;
+    --verde: #7dab85;
+    --verde-claro: #a8d5a2;
+    --amarillo: #fce38a;
+    --morado: #d4a5e8;
+    --texto: #5a3045;
+    --sombra: rgba(224, 112, 144, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(135deg, #fff0f5 0%, #fff8f0 40%, #f5f0ff 100%);
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--texto);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== PARTÍCULAS FLOTANTES ===== */
+  .particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    0%   { transform: translateY(100vh) rotate(0deg) scale(0); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(-10vh) rotate(360deg) scale(1); opacity: 0; }
+  }
+
+  /* ===== PÉTALOS CAYENDO ===== */
+  .petal {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    animation: petalFall linear infinite;
+    font-size: 1.2rem;
+  }
+
+  @keyframes petalFall {
+    0%   { top: -5%; opacity: 1; transform: translateX(0) rotate(0deg); }
+    25%  { transform: translateX(40px) rotate(90deg); }
+    50%  { transform: translateX(-20px) rotate(180deg); }
+    75%  { transform: translateX(30px) rotate(270deg); }
+    100% { top: 105%; opacity: 0.2; transform: translateX(10px) rotate(360deg); }
+  }
+
+  /* ===== HERO SECTION ===== */
+  .hero {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 60px 20px 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .titulo-principal {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    color: var(--rosa-oscuro);
+    text-shadow: 2px 2px 20px rgba(224,112,144,0.25);
+    animation: fadeSlideDown 1.2s ease forwards;
+    opacity: 0;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .subtitulo {
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    font-style: italic;
+    color: #a06080;
+    opacity: 0;
+    animation: fadeSlideDown 1.2s 0.4s ease forwards;
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== JARDÍN DE FLORES SVG ===== */
+  .garden {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 20px 0;
+    opacity: 0;
+    animation: fadeIn 1.5s 0.8s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .garden-svg {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Animaciones para flores SVG */
+  .flor-grupo {
+    transform-origin: center bottom;
+    animation: mecerse 3s ease-in-out infinite;
+  }
+  .flor-grupo:nth-child(2) { animation-delay: 0.4s; animation-duration: 3.5s; }
+  .flor-grupo:nth-child(3) { animation-delay: 0.8s; animation-duration: 2.8s; }
+  .flor-grupo:nth-child(4) { animation-delay: 1.2s; animation-duration: 3.2s; }
+  .flor-grupo:nth-child(5) { animation-delay: 0.6s; animation-duration: 3.7s; }
+  .flor-grupo:nth-child(6) { animation-delay: 1s; animation-duration: 3.1s; }
+  .flor-grupo:nth-child(7) { animation-delay: 0.2s; animation-duration: 3.4s; }
+
+  @keyframes mecerse {
+    0%,100% { transform: rotate(-2deg); }
+    50%      { transform: rotate(2deg); }
+  }
+
+  .petalo-spin {
+    transform-origin: center;
+    animation: spinPetal 8s linear infinite;
+  }
+
+  @keyframes spinPetal {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .latido {
+    animation: latido 2s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  @keyframes latido {
+    0%,100% { transform: scale(1); }
+    50%      { transform: scale(1.08); }
+  }
+
+  /* ===== MENSAJE ROMÁNTICO ===== */
+  .mensaje-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px 24px 60px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeSlideUp 1s 1.5s ease forwards;
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .mensaje-card {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(244,160,181,0.4);
+    border-radius: 32px;
+    padding: clamp(28px, 6vw, 52px) clamp(24px, 6vw, 56px);
+    box-shadow: 0 8px 40px rgba(224,112,144,0.15), 0 2px 8px rgba(255,255,255,0.8) inset;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mensaje-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(244,160,181,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(212,165,232,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .decorador {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    margin-bottom: 12px;
+    display: block;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  .mensaje-texto {
+    font-size: clamp(1.1rem, 3vw, 1.55rem);
+    line-height: 1.85;
+    font-style: italic;
+    color: #6a3050;
+    font-weight: 300;
+  }
+
+  .firma {
+    margin-top: 28px;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 4vw, 1.9rem);
+    font-style: italic;
+    color: var(--rosa-oscuro);
+    text-shadow: 1px 1px 8px rgba(224,112,144,0.3);
+  }
+
+  /* ===== CORAZONES FLOTANTES (click) ===== */
+  .corazon-flotante {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.8rem;
+    z-index: 9999;
+    animation: subirCorazon 1.8s ease-out forwards;
+  }
+
+  @keyframes subirCorazon {
+    0%   { transform: translate(-50%,-50%) scale(0) rotate(-20deg); opacity: 1; }
+    30%  { transform: translate(-50%,-80px) scale(1.2) rotate(10deg); opacity: 1; }
+    100% { transform: translate(-50%,-180px) scale(0.7) rotate(-5deg); opacity: 0; }
+  }
+
+  /* ===== BOTÓN ===== */
+  .btn-amor {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 14px 36px;
+    background: linear-gradient(135deg, var(--rosa), var(--rosa-oscuro));
+    color: white;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    letter-spacing: 0.06em;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(224,112,144,0.45);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+  }
+
+  .btn-amor:hover, .btn-amor:active {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 8px 30px rgba(224,112,144,0.55);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 480px) {
+    .hero { padding: 40px 16px 20px; }
+    .mensaje-card { border-radius: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Partículas de fondo -->
+<div class="particles" id="particles"></div>
+
+<!-- Pétalos cayendo -->
+<div id="petalos"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="titulo-principal">Para Ti,<br>Mi Amor</h1>
+  <p class="subtitulo">Cada flor cuenta lo que siento por ti ✨</p>
+</section>
+
+<!-- JARDÍN SVG -->
+<div class="garden">
+  <svg class="garden-svg" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Pasto / suelo -->
+    <ellipse cx="450" cy="415" rx="460" ry="18" fill="#b8e0b0" opacity="0.5"/>
+    <rect x="0" y="400" width="900" height="20" rx="10" fill="#a8d59a" opacity="0.4"/>
+
+    <!-- ====== FLOR 1: Rosa grande izquierda ====== -->
+    <g class="flor-grupo" style="transform-origin:160px 400px">
+      <!-- tallo -->
+      <path d="M160,400 Q155,340 160,280" stroke="#5a9a60" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <!-- hoja izq -->
+      <path d="M157,330 Q130,310 125,290 Q150,295 160,315" fill="#7dab85" opacity="0.9"/>
+      <!-- hoja der -->
+      <path d="M163,350 Q195,330 200,308 Q175,318 160,335" fill="#7dab85" opacity="0.9"/>
+      <!-- pétalos rosa -->
+      <g class="latido" style="transform-origin:160px 260px">
+        <ellipse cx="160" cy="230" rx="22" ry="35" fill="#f4a0b5" opacity="0.9" transform="rotate(0,160,260)"/>
+        <ellipse cx="160" cy="230" rx="22" ry="35" fill="#f4a0b5" opacity="0.9" transform="rotate(45,160,260)"/>
+        <ellipse cx="160" cy="230" rx="22" ry="35" fill="#f4a0b5" opacity="0.9" transform="rotate(90,160,260)"/>
+        <ellipse cx="160" cy="230" rx="22" ry="35" fill="#f4a0b5" opacity="0.9" transform="rotate(135,160,260)"/>
+        <ellipse cx="160" cy="230" rx="22" ry="35" fill="#f8bfce" opacity="0.8" transform="rotate(22.5,160,260)"/>
+        <ellipse cx="160" cy="230" rx="22" ry="35" fill="#f8bfce" opacity="0.8" transform="rotate(67.5,160,260)"/>
+        <ellipse cx="160" cy="230" rx="22" ry="35" fill="#f8bfce" opacity="0.8" transform="rotate(112.5,160,260)"/>
+        <ellipse cx="160" cy="230" rx="22" ry="35" fill="#f8bfce" opacity="0.8" transform="rotate(157.5,160,260)"/>
+        <!-- centro -->
+        <circle cx="160" cy="260" r="18" fill="#fce38a"/>
+        <circle cx="160" cy="260" r="10" fill="#f0b832"/>
+        <circle cx="160" cy="260" r="5" fill="#e08020"/>
+      </g>
+    </g>
+
+    <!-- ====== FLOR 2: Girasol centro-izquierda ====== -->
+    <g class="flor-grupo" style="transform-origin:290px 400px">
+      <path d="M290,400 Q285,340 290,270" stroke="#5a9a60" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M287,345 Q260,325 255,305 Q280,312 290,330" fill="#7dab85"/>
+      <path d="M293,360 Q322,342 326,320 Q302,328 290,345" fill="#7dab85"/>
+      <g class="petalo-spin" style="transform-origin:290px 255px">
+        <ellipse cx="290" cy="228" rx="14" ry="30" fill="#fce38a" transform="rotate(0,290,255)"/>
+        <ellipse cx="290" cy="228" rx="14" ry="30" fill="#fce38a" transform="rotate(30,290,255)"/>
+        <ellipse cx="290" cy="228" rx="14" ry="30" fill="#fce38a" transform="rotate(60,290,255)"/>
+        <ellipse cx="290" cy="228" rx="14" ry="30" fill="#fad060" transform="rotate(90,290,255)"/>
+        <ellipse cx="290" cy="228" rx="14" ry="30" fill="#fad060" transform="rotate(120,290,255)"/>
+        <ellipse cx="290" cy="228" rx="14" ry="30" fill="#fad060" transform="rotate(150,290,255)"/>
+      </g>
+      <circle cx="290" cy="255" r="22" fill="#7b4a1e"/>
+      <circle cx="290" cy="255" r="14" fill="#5a3010"/>
+      <circle cx="282" cy="248" r="3" fill="#fce38a" opacity="0.6"/>
+      <circle cx="296" cy="250" r="2" fill="#fce38a" opacity="0.6"/>
+      <circle cx="285" cy="260" r="2.5" fill="#fce38a" opacity="0.5"/>
+    </g>
+
+    <!-- ====== FLOR 3: Tulipán morado ====== -->
+    <g class="flor-grupo" style="transform-origin:420px 400px">
+      <path d="M420,400 Q415,350 420,290" stroke="#5a9a60" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M417,355 Q390,335 385,315 Q410,320 420,338" fill="#7dab85"/>
+      <path d="M423,370 Q450,352 454,330 Q430,338 420,352" fill="#7dab85"/>
+      <!-- tulipán -->
+      <g class="latido" style="transform-origin:420px 280px">
+        <path d="M400,290 Q395,250 420,240 Q445,250 440,290 Q430,305 420,308 Q410,305 400,290Z" fill="#d4a5e8"/>
+        <path d="M408,292 Q405,258 420,248 Q420,248 420,308 Q414,305 408,292Z" fill="#c090d8"/>
+        <path d="M432,292 Q435,258 420,248 Q420,248 420,308 Q426,305 432,292Z" fill="#c090d8"/>
+        <!-- estambres -->
+        <line x1="420" y1="245" x2="415" y2="228" stroke="#c090d8" stroke-width="2"/>
+        <line x1="420" y1="245" x2="420" y2="225" stroke="#c090d8" stroke-width="2"/>
+        <line x1="420" y1="245" x2="425" y2="228" stroke="#c090d8" stroke-width="2"/>
+        <circle cx="415" cy="226" r="4" fill="#f4a0b5"/>
+        <circle cx="420" cy="223" r="4" fill="#f4a0b5"/>
+        <circle cx="425" cy="226" r="4" fill="#f4a0b5"/>
+      </g>
+    </g>
+
+    <!-- ====== FLOR 4: Margarita centro ====== -->
+    <g class="flor-grupo" style="transform-origin:550px 400px">
+      <path d="M550,400 Q545,345 550,275" stroke="#5a9a60" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M547,340 Q522,320 518,300 Q542,308 550,325" fill="#7dab85"/>
+      <path d="M553,355 Q578,337 582,315 Q558,323 550,340" fill="#7dab85"/>
+      <g class="latido" style="transform-origin:550px 258px">
+        <ellipse cx="550" cy="238" rx="10" ry="24" fill="white" stroke="#ddd" stroke-width="1" transform="rotate(0,550,258)"/>
+        <ellipse cx="550" cy="238" rx="10" ry="24" fill="white" stroke="#ddd" stroke-width="1" transform="rotate(30,550,258)"/>
+        <ellipse cx="550" cy="238" rx="10" ry="24" fill="white" stroke="#ddd" stroke-width="1" transform="rotate(60,550,258)"/>
+        <ellipse cx="550" cy="238" rx="10" ry="24" fill="white" stroke="#ddd" stroke-width="1" transform="rotate(90,550,258)"/>
+        <ellipse cx="550" cy="238" rx="10" ry="24" fill="white" stroke="#ddd" stroke-width="1" transform="rotate(120,550,258)"/>
+        <ellipse cx="550" cy="238" rx="10" ry="24" fill="white" stroke="#ddd" stroke-width="1" transform="rotate(150,550,258)"/>
+        <circle cx="550" cy="258" r="18" fill="#fce38a"/>
+        <circle cx="550" cy="258" r="11" fill="#f0b030"/>
+      </g>
+    </g>
+
+    <!-- ====== FLOR 5: Rosa durazno derecha ====== -->
+    <g class="flor-grupo" style="transform-origin:680px 400px">
+      <path d="M680,400 Q675,345 680,278" stroke="#5a9a60" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M677,350 Q650,330 645,310 Q670,318 680,335" fill="#7dab85"/>
+      <path d="M683,365 Q710,347 714,325 Q690,332 680,348" fill="#7dab85"/>
+      <g class="latido" style="transform-origin:680px 260px">
+        <ellipse cx="680" cy="232" rx="20" ry="32" fill="#fbd5b0" opacity="0.95" transform="rotate(0,680,260)"/>
+        <ellipse cx="680" cy="232" rx="20" ry="32" fill="#fbd5b0" opacity="0.95" transform="rotate(40,680,260)"/>
+        <ellipse cx="680" cy="232" rx="20" ry="32" fill="#fbd5b0" opacity="0.95" transform="rotate(80,680,260)"/>
+        <ellipse cx="680" cy="232" rx="20" ry="32" fill="#fbd5b0" opacity="0.95" transform="rotate(120,680,260)"/>
+        <ellipse cx="680" cy="232" rx="20" ry="32" fill="#f8c090" opacity="0.85" transform="rotate(20,680,260)"/>
+        <ellipse cx="680" cy="232" rx="20" ry="32" fill="#f8c090" opacity="0.85" transform="rotate(60,680,260)"/>
+        <ellipse cx="680" cy="232" rx="20" ry="32" fill="#f8c090" opacity="0.85" transform="rotate(100,680,260)"/>
+        <ellipse cx="680" cy="232" rx="20" ry="32" fill="#f8c090" opacity="0.85" transform="rotate(140,680,260)"/>
+        <circle cx="680" cy="260" r="16" fill="#fce38a"/>
+        <circle cx="680" cy="260" r="9"  fill="#f0a820"/>
+      </g>
+    </g>
+
+    <!-- ====== FLOR 6: Pequeña flor azul/lila ====== -->
+    <g class="flor-grupo" style="transform-origin:800px 400px">
+      <path d="M800,400 Q796,358 800,308" stroke="#5a9a60" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M798,358 Q778,342 775,326 Q795,332 800,345" fill="#7dab85"/>
+      <g class="latido" style="transform-origin:800px 295px">
+        <ellipse cx="800" cy="278" rx="12" ry="20" fill="#a5c8f0" transform="rotate(0,800,295)"/>
+        <ellipse cx="800" cy="278" rx="12" ry="20" fill="#a5c8f0" transform="rotate(60,800,295)"/>
+        <ellipse cx="800" cy="278" rx="12" ry="20" fill="#a5c8f0" transform="rotate(120,800,295)"/>
+        <ellipse cx="800" cy="278" rx="12" ry="20" fill="#b8d8f8" transform="rotate(30,800,295)"/>
+        <ellipse cx="800" cy="278" rx="12" ry="20" fill="#b8d8f8" transform="rotate(90,800,295)"/>
+        <ellipse cx="800" cy="278" rx="12" ry="20" fill="#b8d8f8" transform="rotate(150,800,295)"/>
+        <circle cx="800" cy="295" r="12" fill="#fce38a"/>
+        <circle cx="800" cy="295" r="6"  fill="#f0b030"/>
+      </g>
+    </g>
+
+    <!-- ====== FLOR 7: Pequeña flor rosa izquierda ====== -->
+    <g class="flor-grupo" style="transform-origin:55px 400px">
+      <path d="M55,400 Q52,362 55,318" stroke="#5a9a60" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <g class="latido" style="transform-origin:55px 305px">
+        <ellipse cx="55" cy="290" rx="11" ry="18" fill="#f4a0b5" transform="rotate(0,55,305)"/>
+        <ellipse cx="55" cy="290" rx="11" ry="18" fill="#f4a0b5" transform="rotate(72,55,305)"/>
+        <ellipse cx="55" cy="290" rx="11" ry="18" fill="#f4a0b5" transform="rotate(144,55,305)"/>
+        <ellipse cx="55" cy="290" rx="11" ry="18" fill="#f8bfce" transform="rotate(36,55,305)"/>
+        <ellipse cx="55" cy="290" rx="11" ry="18" fill="#f8bfce" transform="rotate(108,55,305)"/>
+        <circle cx="55" cy="305" r="10" fill="#fce38a"/>
+        <circle cx="55" cy="305" r="5"  fill="#f0b030"/>
+      </g>
+    </g>
+
+    <!-- Mariposas decorativas -->
+    <g opacity="0.8" style="animation: floatButterfly 6s ease-in-out infinite;">
+      <text x="240" y="200" font-size="22" style="animation: mecerse 4s ease-in-out infinite;">🦋</text>
+    </g>
+    <g opacity="0.7">
+      <text x="600" y="220" font-size="18" style="animation: mecerse 5s 1s ease-in-out infinite;">🦋</text>
+    </g>
+
+    <!-- Corazones flotantes en el jardín -->
+    <text x="350" y="185" font-size="20" opacity="0.6" style="animation: latido 3s ease-in-out infinite;">💕</text>
+    <text x="490" y="170" font-size="16" opacity="0.5" style="animation: latido 2.5s 0.8s ease-in-out infinite;">💗</text>
+
+  </svg>
+</div>
+
+<!-- MENSAJE -->
+<div class="mensaje-wrapper">
+  <div class="mensaje-card">
+    <span class="decorador">🌸</span>
+    <p class="mensaje-texto">
+      Como estas flores que florecen cada mañana,<br>
+      así florece mi amor por ti cada día que pasa.<br><br>
+      Eres la más hermosa de todo mi jardín,<br>
+      la razón de mis sonrisas y la luz de mis días.<br><br>
+      Gracias por ser tú, por existir,<br>
+      y por dejarme amarte.
+    </p>
+    <p class="firma">Con todo mi amor, para siempre 💖</p>
+    <button class="btn-amor" onclick="lloverCorazones()">
+      🌸 Enviarle amor 🌸
+    </button>
+  </div>
+</div>
+
+<script>
+  // ===== Crear partículas de fondo =====
+  const particlesEl = document.getElementById('particles');
+  const colors = ['#f4a0b5','#fbd5b0','#fce38a','#d4a5e8','#a8d5a2','#a5c8f0'];
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 12 + 4;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${Math.random()*12+8}s;
+      animation-delay:${Math.random()*8}s;
+      opacity:0;
+      border-radius:${Math.random()>0.5?'50%':'4px'};
+    `;
+    particlesEl.appendChild(p);
+  }
+
+  // ===== Pétalos cayendo =====
+  const petals = ['🌸','🌺','🌼','💮','🏵️','🌷'];
+  const petalosEl = document.getElementById('petalos');
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petals[Math.floor(Math.random()*petals.length)];
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      font-size:${Math.random()*16+10}px;
+      animation-duration:${Math.random()*8+6}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    petalosEl.appendChild(p);
+  }
+
+  // ===== Corazones al hacer click =====
+  document.addEventListener('click', function(e) {
+    spawnHeart(e.clientX, e.clientY);
+  });
+
+  function spawnHeart(x, y) {
+    const emojis = ['💖','💕','💗','💓','🌸','✨','💝'];
+    const h = document.createElement('div');
+    h.className = 'corazon-flotante';
+    h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    h.style.left = x + 'px';
+    h.style.top = y + 'px';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 1900);
+  }
+
+  function lloverCorazones() {
+    for (let i = 0; i < 18; i++) {
+      setTimeout(() => {
+        spawnHeart(
+          Math.random() * window.innerWidth,
+          Math.random() * window.innerHeight * 0.8 + 50
+        );
+      }, i * 100);
+    }
+  }
+</script>
+</body>
+</html>
